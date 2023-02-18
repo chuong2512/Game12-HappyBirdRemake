@@ -8,9 +8,9 @@ using UnityEngine.Purchasing;
 public class IAPKey
 {
     public const string PACK = "revive";
-    public const string PACK1 = "add50";
-    public const string PACK2 = "add100";
-    public const string PACK3 = "add500";
+    public const string PACK1 = "add50point";
+    public const string PACK2 = "add100point";
+    public const string PACK3 = "add500point";
 }
 
 public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
