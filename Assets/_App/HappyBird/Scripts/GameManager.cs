@@ -27,8 +27,6 @@ public class GameManager : Jackal.Singleton<GameManager>
     void Start()
     {
         addPoint = 0;
-        
-        IAPManager.OnPurchaseSuccess = Continue;
 
         if (PlayerPrefs.GetInt("Save", 0) > 0)
         {
@@ -39,7 +37,7 @@ public class GameManager : Jackal.Singleton<GameManager>
             Score = 0;
         }
 
-        InvokeRepeating("CreateObjects", 1, 2);
+        InvokeRepeating(nameof(CreateObjects), 1, 2);
     }
 
     void CreateObjects()
