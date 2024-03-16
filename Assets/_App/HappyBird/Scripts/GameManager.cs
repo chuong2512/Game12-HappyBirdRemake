@@ -1,15 +1,30 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
+[DefaultExecutionOrder(-999)]
 public class GameManager : Jackal.Singleton<GameManager>
 {
     public GameObject objects;
 
     public TextMesh scoreLabel;
+    public TextMesh heartLabel;
     public static int score;
 
+    public int Heart
+    {
+        get => _heart;
+        set
+        {
+            _heart = value;
+            heartLabel.text = _heart.ToString();
+        }
+    }
+
     public GameObject loseGameObj;
+    private int _heart;
 
     public static int addPoint = 0;
 
@@ -27,6 +42,7 @@ public class GameManager : Jackal.Singleton<GameManager>
     void Start()
     {
         addPoint = 0;
+        Heart = 3;
 
         if (PlayerPrefs.GetInt("Save", 0) > 0)
         {
@@ -47,11 +63,16 @@ public class GameManager : Jackal.Singleton<GameManager>
 
     public void LoseGame()
     {
-        loseGameObj.SetActive(true);
+        Heart--;
+        if (Heart <= 0)
+        {
+            loseGameObj.SetActive(true);
+        }
     }
 
     public void Continue()
     {
+        Heart = 1;
         PlayerPrefs.SetInt("Save", 1);
         PlayerPrefs.SetInt("Score", score + addPoint);
         SceneManager.LoadScene("Game");
@@ -64,6 +85,7 @@ public class GameManager : Jackal.Singleton<GameManager>
             score = 0;
         }
 
+        Heart = 3;
         PlayerPrefs.SetInt("Save", 0);
         SceneManager.LoadScene("Game");
     }
