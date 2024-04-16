@@ -25,13 +25,28 @@ namespace _App.HappyBird.Scripts
         {
             GameManager.Instance.Retry();
         }
-    
+
         private void ReviveWithPoint(int point)
         {
             GameManager.addPoint = point;
 
+            IAPManager.OnPurchaseSuccess = () => { GameManager.Instance.Continue(); }
+                ;
+
             switch (point)
             {
+                case 0:
+                    IAPManager.Instance.BuyProductID(IAPKey.PACK1);
+                    break;
+                case 50:
+                    IAPManager.Instance.BuyProductID(IAPKey.PACK2);
+                    break;
+                case 100:
+                    IAPManager.Instance.BuyProductID(IAPKey.PACK3);
+                    break;
+                case 500:
+                    IAPManager.Instance.BuyProductID(IAPKey.PACK4);
+                    break;
             }
         }
 
